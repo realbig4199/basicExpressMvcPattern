@@ -1,1 +1,1 @@
-# basicExpressMvcPattern
+Node.js의 익스프레스 프레임 워크를 활용하여 MVC 패턴을 구현해봄
