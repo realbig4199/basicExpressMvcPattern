@@ -1,4 +1,6 @@
 const express = require("express");
+const mongoose = require("mongoose"); // mongoose 임포트
+
 const PORT = 4000;
 // 라우터 불러오기
 const usersRouter = require("./routes/users.router");
@@ -6,8 +8,18 @@ const postsRouter = require("./routes/posts.router");
 
 const app = express();
 
+// 몽고DB 연결 URL
+const mongoURI = "mongodb://localhost:27017/mydatabase";
+
+// Mongoose를 사용하여 MongoDB에 연결
+mongoose
+  .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB connected..."))
+  .catch((err) => console.log(err));
+
 // 정적 파일 제공 미들웨어
 const path = require("path");
+// 가상 경로 (/static)를 설정하여 public 폴더를 정적 파일 제공 폴더로 설정
 app.use("/static", express.static(path.join(__dirname, "public")));
 
 // 특정 엔진을 템플릿 엔진으로 사용하기 위한 설정
