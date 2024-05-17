@@ -6,6 +6,7 @@ const PORT = process.env.PORT || 4000;
 // 라우터 불러오기
 const usersRouter = require("./routes/users.router");
 const postsRouter = require("./routes/posts.router");
+const productsRouter = require("./routes/products.router");
 
 const app = express();
 
@@ -38,11 +39,17 @@ app.use(express.json());
 // 라우터 설정 (baseURL 설정)
 app.use("/users", usersRouter);
 app.use("/posts", postsRouter);
+app.use("/products", productsRouter);
 
 app.get("/", (req, res) => {
   res.render("index", {
     imageTitle: "Programming!!",
   });
+});
+
+// 에러 핸들러 미들웨어
+app.use((err, req, res, next) => {
+  res.json({ message: err.message });
 });
 
 app.listen(PORT, () => {
